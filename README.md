@@ -1,21 +1,6 @@
-# Exercism Test Runner Template
+# Exercism R Test Runner
 
-This repository is a [template repository](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-template-repository) for creating [test runners][test-runners] for [Exercism][exercism] tracks.
-
-## Using the Test Runner Template
-
-1. Follow [GitHub's documentation](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template) for creating a repository from a template repository
-2. Name your new repository based on your language track (i.e. if your track is for Python, your test runner repo name is `python-test-runner`)
-3. In your new repository:
-   1. Remove the [Exercism Test Runner Template](#exercism-test-runner-template) section from README.md
-   2. Modify `Dockerfile`, `.dockerignore` and `bin/run.sh` to match your track's needs
-4. The interface that test runners must conform to is defined in [this document](https://github.com/exercism/automated-tests/blob/master/docs/interface.md).
-
-Once you're happy with your test runner, [open an issue on the exercism/automated-tests repo](https://github.com/exercism/automated-tests/issues/new?assignees=&labels=&template=new-test-runner.md&title=%5BNew+Test+Runner%5D+) to request an official test runner repository for your track.
-
-# Exercism TRACK_NAME_HERE Test Runner
-
-The Docker image to automatically run tests on TRACK_NAME_HERE solutions submitted to [Exercism].
+The Docker image to automatically run tests on R solutions submitted to [Exercism].
 
 ## Running the Tests
 To run all of the tests, do the following:
