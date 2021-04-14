@@ -1,0 +1,5 @@
+{
+  "version": 1,
+  "status": "fail",
+  "output": "Test passed 🥇\nTest passed 🥇\nTest passed 🥇\n\u001b[01;31m\u001b[K── Failure (???): year divisible by 400: leap year ─────────────────────────────\u001b[m\u001b[K\nleap(year) not equal to TRUE.\n1 element mismatch\n\nAll tests passed for exercise: leap"
+}

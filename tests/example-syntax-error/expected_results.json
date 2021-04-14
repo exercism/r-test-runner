@@ -1,0 +1,5 @@
+{
+  "version": 1,
+  "status": "fail",
+  "output": "Error in source(\"./example-syntax-error.R\") : \n  ./example-syntax-error.R:2:0: unexpected end of input\n1: LEAPD@# &*@*\n   ^\nExecution halted"
+}

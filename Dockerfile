@@ -1,7 +1,12 @@
-FROM alpine:3.10
+FROM r-base:3.6.3
 
-# Uncomment to install depenencies
-# RUN apk add --no-cache coreutils
+RUN apt-get update && \
+    apt-get install -y jq && \
+    apt-get purge --auto-remove -y && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN Rscript -e 'install.packages("testthat")'
 
 COPY . /opt/test-runner
 WORKDIR /opt/test-runner
