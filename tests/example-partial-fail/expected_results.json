@@ -1,0 +1,5 @@
+{
+  "version": 1,
+  "status": "fail",
+  "output": "    # Failed test 'Result matches expected'\n    # at /solution/leap.rakutest line 19\n    # expected: Bool::True\n    #      got: Bool::False\n    # You failed 1 test of 2\n\u001b[01;31m\u001b[K# Failed test 'year divisible by 400 in leap year'\u001b[m\u001b[K\n# at /solution/leap.rakutest line 16\n    # Failed test 'Result matches expected'\n    # at /solution/leap.rakutest line 19\n    # expected: Bool::True\n    #      got: Bool::False\n    # You failed 1 test of 2\n\u001b[01;31m\u001b[K# Failed test 'year divisible by 400 but not by 125 is still a leap year'\u001b[m\u001b[K\n# at /solution/leap.rakutest line 16\n# You failed 2 tests of 9\n/solution/leap.rakutest .. Dubious, test returned 2\nFailed 2/9 subtests \n\nTest Summary Report\n-------------------\n/solution/leap.rakutest (Wstat: 512 Tests: 9 Failed: 2)\n  Failed tests:  7 8\nNon-zero exit status: 2\nFiles=1, Tests=9,  \nResult: FAILED"
+}

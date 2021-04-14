@@ -1,0 +1,5 @@
+{
+  "version": 1,
+  "status": "fail",
+  "output": "\u001b[31m===\u001b[0mSORRY!\u001b[31m===\u001b[0m Error while compiling /solution/leap.rakutest\n\u001b[31m===\u001b[0mSORRY!\u001b[31m===\u001b[0m Error while compiling /solution/Leap.rakumod (Leap)\nTwo terms in a row\nat /solution/Leap.rakumod (Leap):1\n------> \u001b[32muniTTT mod\u001b[33m⏏\u001b[31m@#le Leap\u001b[0m\n    expecting any of:\n        infix\n        infix stopper\n        postfix\n        statement end\n        statement modifier\n        statement modifier loop\n\nat /solution/leap.rakutest:5\n/solution/leap.rakutest .. Dubious, test returned 1\nNo subtests run\nAll tests successful.\n\nTest Summary Report\n-------------------\n/solution/leap.rakutest (Wstat: 256 Tests: 0 Failed: 0)\nNon-zero exit status: 1\n  Parse errors: No plan found in TAP output\nFiles=1, Tests=0,  \nResult: FAILED"
+}
