@@ -30,7 +30,7 @@ output_dir="${3%/}"
 mkdir -p "${output_dir}"
 
 # Build the Docker image
-docker build --rm -t exercism/test-runner .
+docker build --rm -t exercism/r-test-runner .
 
 # Run the Docker image using the settings mimicking the production environment
 docker run \
@@ -40,4 +40,4 @@ docker run \
     --mount type=bind,src="${input_dir}",dst=/solution \
     --mount type=bind,src="${output_dir}",dst=/output \
     --mount type=tmpfs,dst=/tmp \
-    exercism/test-runner "${slug}" /solution /output 
+    exercism/r-test-runner "${slug}" /solution /output 

@@ -1,5 +1,5 @@
 {
   "version": 1,
   "status": "fail",
-  "message": "\u001b[01;31m\u001b[K── Failure (???): year not divisible by 4: common year ─────────────────────────\u001b[m\u001b[K\nleap(year) not equal to FALSE.\n1 element mismatch\n\n\u001b[01;31m\u001b[K── Failure (???): year divisible by 4, not divisible by 100: leap year ─────────\u001b[m\u001b[K\nleap(year) not equal to TRUE.\n1 element mismatch\n\nAll tests passed for exercise: leap"
+  "message": "\u001b[01;31m\u001b[K── Failure (???): year not divisible by 4: common year ─────────────────────────\u001b[m\u001b[K\nleap(year) not equal to FALSE.\n1 element mismatch\n\nError in reporter$stop_if_needed() : Test failed\nCalls: test_that -> <Anonymous>\nExecution halted"
 }
