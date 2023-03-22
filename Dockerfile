@@ -1,4 +1,7 @@
-FROM r-base:4.1.2
+FROM rocker/tidyverse:4.2.2
+
+ENV OMP_NUM_THREADS=1
+ENV OPENBLAS_NUM_THREADS=1
 
 RUN apt-get update && \
     apt-get install -y jq && \
