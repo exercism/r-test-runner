@@ -1,4 +1,4 @@
-FROM r-base:4.1.2
+FROM rocker/tidyverse:4.3.1
 
 RUN apt-get update && \
     apt-get install -y jq && \
