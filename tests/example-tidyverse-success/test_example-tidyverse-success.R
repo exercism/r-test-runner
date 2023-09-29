@@ -1,4 +1,4 @@
-source("./example-success.R")
+source("./example-tidyverse-success.R")
 library(testthat)
 
 context("leap")
