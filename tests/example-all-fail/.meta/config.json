@@ -1,0 +1,12 @@
+{
+  "tests": [
+    {
+      "name": "year not divisible by 4: common year",
+      "task_id": 1
+    },
+    {
+      "name": "year divisible by 4, not divisible by 100: leap year",
+      "task_id": 1
+    }
+  ]
+}
