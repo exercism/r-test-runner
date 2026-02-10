@@ -1,5 +1,5 @@
 {
   "version": 1,
   "status": "fail",
-  "message": "\u001b[01;31m\u001b[K── Error: year not divisible by 4: common year ─────────────────────────────────\u001b[m\u001b[K\nError in `leap(year)`: could not find function \"leap\"\nBacktrace:\n    ▆\n 1. └─testthat::expect_equal(leap(year), FALSE)\n 2.   └─testthat::quasi_label(enquo(object), label, arg = \"object\")\n 3.     └─rlang::eval_bare(expr, quo_get_env(quo))\n\nError: Test failed\nExecution halted"
+  "message": "\u001b[01;31m\u001b[K── Error: year not divisible by 4: common year ─────────────────────────────────\u001b[m\u001b[K\nError in `leap(year)`: could not find function \"leap\"\nBacktrace:\n    ▆\n 1. └─testthat::expect_equal(leap(year), FALSE)\n 2.   └─testthat::quasi_label(enquo(object), label)\n 3.     └─rlang::eval_bare(expr, quo_get_env(quo))\nError:\n! Test failed with 1 failure and 0 successes.\nBacktrace:\n    ▆\n 1. └─testthat::test_that(...)\n 2.   └─testthat:::test_code(code, parent.frame())\n 3.     ├─withr (local) `<fn>`()\n 4.     └─reporter$end_test(context = reporter$.context, test = test)\n 5.       └─cli::cli_abort(...)\n 6.         └─rlang::abort(...)\nExecution halted"
 }

@@ -1,5 +1,5 @@
 {
   "version": 1,
   "status": "fail",
-  "message": "Test passed 🥇\nTest passed 🥇\nTest passed 🥇\n\u001b[01;31m\u001b[K── Failure: year divisible by 400: leap year ───────────────────────────────────\u001b[m\u001b[K\nleap(year) not equal to TRUE.\n1 element mismatch\n\nError: Test failed\nExecution halted"
+  "message": "Test passed with 1 success 🥇.\nTest passed with 1 success 🥇.\nTest passed with 1 success 🥇.\n\u001b[01;31m\u001b[K── Failure: year divisible by 400: leap year ───────────────────────────────────\u001b[m\u001b[K\nExpected `leap(year)` to equal TRUE.\nDifferences:\n1 element mismatch\nError:\n! Test failed with 1 failure and 0 successes.\nBacktrace:\n    ▆\n 1. └─testthat::test_that(...)\n 2.   └─testthat:::test_code(code, parent.frame())\n 3.     ├─withr (local) `<fn>`()\n 4.     └─reporter$end_test(context = reporter$.context, test = test)\n 5.       └─cli::cli_abort(...)\n 6.         └─rlang::abort(...)\nExecution halted"
 }
