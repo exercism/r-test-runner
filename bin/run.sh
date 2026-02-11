@@ -30,7 +30,7 @@ results_file="${output_dir}/results.json"
 # Create the output directory if it doesn't exist
 mkdir -p "${output_dir}"
 
-current_dir = $(pwd)
+current_dir="$PWD"
 
 pushd "${input_dir}" > /dev/null
 
