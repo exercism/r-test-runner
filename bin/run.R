@@ -4,26 +4,25 @@ library(jsonlite)
 # Creates the `results.json` for the test runner with arguments supplied from `run.sh`.
 
 # Arguments:
-# 1: exercise `test_slug.R`
-# 2: absolute path to `results.json` in output directory
+# 1: absolute path to exercise `test_slug.R`
 
 # Output:
 # Writes the test results to a results.json file in the passed-in file path.
 # The test results are formatted according to the specifications at https://github.com/exercism/docs/blob/main/building/tooling/test-runners/interface.md
 
 
-args <- commandArgs(trailingOnly = TRUE) # args[1] = `test_slug.R`, args[2] = file path for `results.json`
-output <- capture.output(testout <- test_file(args[1], reporter = "list")) # Run `test_slug.R`, get testthat output and capture stdout
+test_slug <- commandArgs(trailingOnly = TRUE)
+output <- capture.output(testout <- test_file(test_slug, reporter = "list")) # Run `test_slug.R`, get testthat output and capture stdout
 output <- substring(paste(output, collapse = "\n"), 1, 5000)               # Trim stdout
-test_slug <- paste(readLines(args[1], warn = FALSE), collapse = "\n")      # Read in `test_slug.R`
-test_matches <- gregexpr("test_that\\([\\s\\S]*?\\n?}\\n?\\)", test_slug, perl = TRUE) # Match test sets in `test_slug.R`
-test_code <- unlist(regmatches(test_slug, test_matches)) # Vector of test set code strings from `test_slug.R`
+test_slug_str <- paste(readLines(test_slug, warn = FALSE), collapse = "\n")      # Read in `test_slug.R` as string
+test_matches <- gregexpr("test_that\\([\\s\\S]*?\\n?}\\n?\\)", test_slug_str, perl = TRUE) # Match test sets in `test_slug.R`
+test_code <- unlist(regmatches(test_slug_str, test_matches)) # Vector of test set code strings from `test_slug.R`
 
 json_list <- list(
-    status = "pass",
-    version = 3,
-    message = output,
-    tests = list()
+  status = "pass",
+  version = 3,
+  message = output,
+  tests = list()
 )
 
 get_name <- function(test_name) { # takes a string test name
@@ -72,4 +71,4 @@ for (i in seq_along(testout)) { # Outer loop over all named test sets.
 }
 if (json_list$message == "") json_list$message <- NULL  # remove message key from top level JSON if still empty
 
-cat(toJSON(json_list, pretty = 4), "\n", file = args[2], sep = "")  # write `results.json`
+cat(toJSON(json_list, pretty = 4), "\n", sep = "")  # create `results.json`

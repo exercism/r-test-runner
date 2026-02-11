@@ -24,15 +24,13 @@ fi
 slug="$1"
 input_dir="${2%/}"
 output_dir="${3%/}"
-current_dir="$PWD"
-tests_file="test_${slug}.R"
+current_dir="${PWD}"
+tests_file="/test_${slug}.R"
 results_file="${output_dir}/results.json"
 
 # Create the output directory if it doesn't exist
 mkdir -p "${output_dir}"
 
-pushd "${input_dir}" > /dev/null
+test_output=$(Rscript "${current_dir}/run.R" "${input_dir}${tests_file}")
 
-Rscript "${current_dir}/bin/run.R" "$tests_file" "$results_file"
-
-popd > /dev/null
+echo "${test_output}" > "${results_file}"
