@@ -1,5 +1,30 @@
 {
-  "version": 1,
-  "status": "fail",
-  "message": "Test passed 🥇\nTest passed 🥇\nTest passed 🥇\n\u001b[01;31m\u001b[K── Failure: year divisible by 400: leap year ───────────────────────────────────\u001b[m\u001b[K\nleap(year) not equal to TRUE.\n1 element mismatch\n\nError: Test failed\nExecution halted"
+    "status": ["fail"],
+    "version": [3],
+    "tests": [
+        {
+            "name": ["year not divisible by 4: common year"],
+            "test_code": ["test_that(\"year not divisible by 4: common year\", {\n  year <- 2015\n  expect_equal(leap(year), FALSE)\n})"],
+            "status": ["pass"],
+            "message": ["success"]
+        },
+        {
+            "name": ["year divisible by 4, not divisible by 100: leap year"],
+            "test_code": ["test_that(\"year divisible by 4, not divisible by 100: leap year\", {\n  year <- 2016\n  expect_equal(leap(year), TRUE)\n})"],
+            "status": ["pass"],
+            "message": ["success"]
+        },
+        {
+            "name": ["year divisible by 100, not divisible by 400: common year"],
+            "test_code": ["test_that(\"year divisible by 100, not divisible by 400: common year\", {\n  year <- 2100\n  expect_equal(leap(year), FALSE)\n})"],
+            "status": ["pass"],
+            "message": ["success"]
+        },
+        {
+            "name": ["year divisible by 400: leap year"],
+            "test_code": ["test_that(\"year divisible by 400: leap year\", {\n  year <- 2000\n  expect_equal(leap(year), TRUE)\n})"],
+            "status": ["fail"],
+            "message": ["Expected `leap(year)` to equal TRUE.\nDifferences:\n1 element mismatch"]
+        }
+    ]
 }
