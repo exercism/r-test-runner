@@ -30,6 +30,6 @@ results_file="${output_dir}/results.json"
 # Create the output directory if it doesn't exist
 mkdir -p "${output_dir}"
 
-test_output=$(Rscript "./run.R" "${input_dir}/${tests_file}")
+test_output=$(Rscript "./bin/run.R" "${input_dir}/${tests_file}")
 
 echo "${test_output}" > "${results_file}"
