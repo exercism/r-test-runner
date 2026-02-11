@@ -30,8 +30,10 @@ results_file="${output_dir}/results.json"
 # Create the output directory if it doesn't exist
 mkdir -p "${output_dir}"
 
+current_dir = $(pwd)
+
 pushd "${input_dir}" > /dev/null
 
-Rscript ./bin/run.R "$tests_file" "$results_file"
+Rscript "${current_dir}/bin/run.R" "$tests_file" "$results_file"
 
 popd > /dev/null
