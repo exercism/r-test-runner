@@ -24,13 +24,12 @@ fi
 slug="$1"
 input_dir="${2%/}"
 output_dir="${3%/}"
+current_dir="$PWD"
 tests_file="test_${slug}.R"
 results_file="${output_dir}/results.json"
 
 # Create the output directory if it doesn't exist
 mkdir -p "${output_dir}"
-
-current_dir="$PWD"
 
 pushd "${input_dir}" > /dev/null
 

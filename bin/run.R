@@ -65,7 +65,8 @@ for (i in seq_along(testout)) { # Outer loop over all named test sets.
                                  status = test_status,
                                  message = test_result,
                                  task_id = as.numeric(name[1]))
-    if (json_list$tests[[n]]$task_id == 0) json_list$tests[[n]]$task_id <- NULL
+    
+    if (json_list$tests[[n]]$task_id == 0) json_list$tests[[n]]$task_id <- NULL # remove task_id if zero
     n <- n + 1
   }
 }
