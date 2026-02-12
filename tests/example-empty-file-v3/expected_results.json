@@ -1,0 +1,34 @@
+{
+    "status": "fail",
+    "version": 3,
+    "tests": [
+        {
+            "name": "year not divisible by 4: common year",
+            "test_code": "test_that(\"1. year not divisible by 4: common year\", {\n  year <- 2015\n  expect_equal(leap(year), FALSE)\n})",
+            "status": "error",
+            "message": "Error in `leap(year)`: could not find function \"leap\"",
+            "task_id": 1
+        },
+        {
+            "name": "year divisible by 4, not divisible by 100: leap year",
+            "test_code": "test_that(\"2. year divisible by 4, not divisible by 100: leap year\", {\n  year <- 2016\n  expect_equal(leap(year), TRUE)\n})",
+            "status": "error",
+            "message": "Error in `leap(year)`: could not find function \"leap\"",
+            "task_id": 2
+        },
+        {
+            "name": "year divisible by 100, not divisible by 400: common year",
+            "test_code": "test_that(\"3. year divisible by 100, not divisible by 400: common year\", {\n  year <- 2100\n  expect_equal(leap(year), FALSE)\n})",
+            "status": "error",
+            "message": "Error in `leap(year)`: could not find function \"leap\"",
+            "task_id": 3
+        },
+        {
+            "name": "year divisible by 400: leap year",
+            "test_code": "test_that(\"4. year divisible by 400: leap year\", {\n  year <- 2000\n  expect_equal(leap(year), TRUE)\n})",
+            "status": "error",
+            "message": "Error in `leap(year)`: could not find function \"leap\"",
+            "task_id": 4
+        }
+    ]
+}

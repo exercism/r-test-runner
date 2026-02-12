@@ -1,5 +1,30 @@
 {
-  "version": 1,
-  "status": "fail",
-  "message": "\u001b[01;31m\u001b[K── Error: year not divisible by 4: common year ─────────────────────────────────\u001b[m\u001b[K\nError in `leap(year)`: could not find function \"leap\"\nBacktrace:\n    ▆\n 1. └─testthat::expect_equal(leap(year), FALSE)\n 2.   └─testthat::quasi_label(enquo(object), label)\n 3.     └─rlang::eval_bare(expr, quo_get_env(quo))\nError:\n! Test failed with 1 failure and 0 successes.\nBacktrace:\n    ▆\n 1. └─testthat::test_that(...)\n 2.   └─testthat:::test_code(code, parent.frame())\n 3.     ├─withr (local) `<fn>`()\n 4.     └─reporter$end_test(context = reporter$.context, test = test)\n 5.       └─cli::cli_abort(...)\n 6.         └─rlang::abort(...)\nExecution halted"
+    "status": "fail",
+    "version": 3,
+    "tests": [
+        {
+            "name": "year not divisible by 4: common year",
+            "test_code": "test_that(\"year not divisible by 4: common year\", {\n  year <- 2015\n  expect_equal(leap(year), FALSE)\n})",
+            "status": "error",
+            "message": "Error in `leap(year)`: could not find function \"leap\""
+        },
+        {
+            "name": "year divisible by 4, not divisible by 100: leap year",
+            "test_code": "test_that(\"year divisible by 4, not divisible by 100: leap year\", {\n  year <- 2016\n  expect_equal(leap(year), TRUE)\n})",
+            "status": "error",
+            "message": "Error in `leap(year)`: could not find function \"leap\""
+        },
+        {
+            "name": "year divisible by 100, not divisible by 400: common year",
+            "test_code": "test_that(\"year divisible by 100, not divisible by 400: common year\", {\n  year <- 2100\n  expect_equal(leap(year), FALSE)\n})",
+            "status": "error",
+            "message": "Error in `leap(year)`: could not find function \"leap\""
+        },
+        {
+            "name": "year divisible by 400: leap year",
+            "test_code": "test_that(\"year divisible by 400: leap year\", {\n  year <- 2000\n  expect_equal(leap(year), TRUE)\n})",
+            "status": "error",
+            "message": "Error in `leap(year)`: could not find function \"leap\""
+        }
+    ]
 }
