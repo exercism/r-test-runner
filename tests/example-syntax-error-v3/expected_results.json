@@ -1,6 +1,0 @@
-{
-    "status": ["error"],
-    "version": [3],
-    "message": ["Error in `source(\"./example-syntax-error-v3.R\")`: ./example-syntax-error-v3.R:2:0: unexpected end of input\n1: LEAPD@# &*@*\n   ^"],
-    "tests": []
-}
