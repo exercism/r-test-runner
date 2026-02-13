@@ -38,7 +38,7 @@ get_status <- function(result) { # takes a result string from testthat reporter,
   "fail"
 }
 
-tests <- mapply(function(i) { # Outer loop over all named test sets.
+tests <- lapply(seq_along(testout), function(i) { # Outer loop over all named test sets.
   test_name <- testout[[i]]$test[[1]]
 
   code <- if (i <= length(test_code)) test_code[i] else "" # a likely unnecessary bounds check
@@ -58,24 +58,21 @@ tests <- mapply(function(i) { # Outer loop over all named test sets.
     if (test$task_id == 0) test$task_id <- NULL # remove task_id if zero
     test
   })
-}, seq_along(testout))
+})
 
-json_list$tests <- tests
+json_list$tests <- unlist(tests, recursive = FALSE)
 
 if (is.na(testout[[1]]$test[[1]])) { # If test_name is NA, there was a compilation / pretest error
   test_result <- unlist(testout[[1]]$results)$message
   json_list$status <- "error"
   json_list$message <- substring(test_result, 1, 500) # trim stderr for debugging
-  json_list$tests <- NULL
+  json_list$tests <- NULL                             # remove tests
 }
 if (json_list$message == "") json_list$message <- NULL  # remove message key from top level JSON if still empty
 
 to_json <- function(x, i = 0, indent = 4) {
   spaces <- function(n) paste(rep(strrep(" ", indent), n), collapse = "")
-  if (is.character(x)) {
-    if (length(x) != 1) x <- paste(x, collapse = "")
-    return(encodeString(x, quote = '"'))
-  }
+  if (is.character(x)) return(encodeString(paste(x, collapse = ""), quote = '"'))
   if (is.numeric(x)) return(as.character(x))
   if (is.null(names(x))) {
     items <- vapply(x, to_json, "", i = i + 1, indent = indent)
