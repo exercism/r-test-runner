@@ -1,34 +1,31 @@
 {
-    "status": "pass",
+    "status": "fail",
     "version": 3,
-    "message": "[1] \"Hello, World in 2015!\"\n[1] \"Hello, World in 2016!\"\n[1] \"Hello, World in 2100!\"\n[1] \"Hello, World in 2000!\"",
     "tests": [
         {
             "name": "year not divisible by 4: common year",
             "test_code": "test_that(\"1. year not divisible by 4: common year\", {\n  year <- 2015\n  expect_equal(leap(year), FALSE)\n})",
             "status": "pass",
-            "message": "success",
             "task_id": 1
         },
         {
             "name": "year divisible by 4, not divisible by 100: leap year",
             "test_code": "test_that(\"2. year divisible by 4, not divisible by 100: leap year\", {\n  year <- 2016\n  expect_equal(leap(year), TRUE)\n})",
             "status": "pass",
-            "message": "success",
             "task_id": 2
         },
         {
             "name": "year divisible by 100, not divisible by 400: common year",
-            "test_code": "test_that(\"3. year divisible by 100, not divisible by 400: common year\", {\n  year <- 2100\n  expect_equal(leap(year), FALSE)\n})",
-            "status": "pass",
-            "message": "success",
+            "test_code": "test_that(\"3. year divisible by 100, not divisible by 400: common year\", {\n  year <- 2100\n  expect_equal(leap(year), TRUE)\n})",
+            "status": "fail",
+            "message": "Expected `leap(year)` to equal TRUE.\nDifferences:\n1 element mismatch",
             "task_id": 3
         },
         {
             "name": "year divisible by 400: leap year",
-            "test_code": "test_that(\"4. year divisible by 400: leap year\", {\n  year <- 2000\n  expect_equal(leap(year), TRUE)\n})",
-            "status": "pass",
-            "message": "success",
+            "test_code": "test_that(\"4. year divisible by 400: leap year\", {\n  unassigned_variable\n  year <- 2000\n  expect_equal(leap(year), TRUE)\n})",
+            "status": "error",
+            "message": "Error in `eval(code, test_env)`: object 'unassigned_variable' not found",
             "task_id": 4
         }
     ]

@@ -12,10 +12,11 @@ test_that("2. year divisible by 4, not divisible by 100: leap year", {
 
 test_that("3. year divisible by 100, not divisible by 400: common year", {
   year <- 2100
-  expect_equal(leap(year), FALSE)
+  expect_equal(leap(year), TRUE)
 })
 
 test_that("4. year divisible by 400: leap year", {
+  unassigned_variable
   year <- 2000
   expect_equal(leap(year), TRUE)
 })
