@@ -21,12 +21,10 @@ stdout <- substring(paste(stdout, collapse = "\n"), 1, 500)                  # T
 
 json_list <- list(
   status = "pass",
-  version = 3,
-  message = stdout,
-  tests = list()
+  version = 3
 )
 
-get_name <- function(test_name) { # takes a string test name
+get_name <- function(test_name) { # takes a string of test name
   if (grepl("^(\\d+)\\. +", test_name)){  # concept exercise test names are prefixed with number
     matches <- unlist(regmatches(test_name, regexec("^(\\d+)\\. +(.+)$", test_name))) # Get test number and name
     return(c(matches[2], matches[3]))
@@ -34,49 +32,46 @@ get_name <- function(test_name) { # takes a string test name
   c("0", test_name) # practice exercises assigned dummy test number and returned an unmodified name
 }
 
-get_status <- function(result) { # takes a result string from testthat reporter, returns JSON test status
-  if (result == "success") return("pass")
-  if (startsWith(result, "Error")) return("error")
-  "fail"
-}
-
-tests <- lapply(seq_along(testout), function(i) { # Outer loop over all named test sets.
-  test_name <- testout[[i]]$test[[1]]
-
-  test_code_run <- if (i <= length(code_run)) code_run[i] else "" # a likely unnecessary bounds check
-  name <- get_name(test_name)
-
-  lapply(testout[[i]]$results, function(result) { # Inner loop for test sets with more than one test.
-    test_result <- result[[1]]
-    test_status <- get_status(test_result)
-    if (test_status != "pass") json_list$status <<- "fail" # test "fail" or "error" results in exercise "fail"
-
-    test <- list(name = name[2],
-                 test_code = test_code_run,
-                 status = test_status,
-                 message = test_result,
-                 output = stdout,
-                 task_id = as.numeric(name[1]))
-
-    if (test$task_id == 0) test$task_id <- NULL # remove task_id if zero
-    if (test$status == "pass") test$message <- NULL # remove message if passing
-    if (test$output == "" || test$status == "pass") test$output <- NULL # no need for output in these cases
-
-    test
-  })
-})
-
-json_list$tests <- unlist(tests, recursive = FALSE)
-
 if (is.na(testout[[1]]$test[[1]])) { # If test_name is NA, there was a compilation / pretest error
-  test_result <- unlist(testout[[1]]$results)$message
+  stderr <- unlist(testout[[1]]$results)$message
   json_list$status <- "error"
-  json_list$message <- substring(test_result, 1, 5000) # trim stderr for debugging
-  json_list$tests <- NULL                             # remove tests
+  json_list$message <- substring(stderr, 1, 5000) # trim stderr for debugging
+} else { # add tests if no compilaton / pretest error
+  tests <- lapply(seq_along(testout), function(i) { # Outer loop over all named test sets.
+    test_name <- testout[[i]]$test[[1]]
+
+    test_code_run <- if (i <= length(code_run)) code_run[i] else "" # a likely unnecessary bounds check
+    num_name <- get_name(test_name)
+
+    lapply(testout[[i]]$results, function(result) { # Inner loop for test sets with more than one test.
+      test_result <- result[[1]]
+      test_status <- if (test_result == "success") {
+                       "pass"
+                     } else if (startsWith(test_result, "Error")) {
+                       "error"
+                     } else {
+                       "fail"
+                     }
+    
+      if (test_status != "pass") json_list$status <<- "fail" # test "fail" or "error" results in exercise "fail"
+
+      test <- list(name = num_name[2],
+                   test_code = test_code_run,
+                   status = test_status)
+
+      if (test$status != "pass") test$message <- test_result           # add message if not passing
+      if (stdout != "" && test$status != "pass") test$output <- stdout # need for output in these cases
+      if (num_name[1] != "0") test$task_id <- as.numeric(num_name[1])  # add task_id if nonzero
+
+      test
+    })
+  })
+  
+  json_list$tests <- unlist(tests, recursive = FALSE)
 }
-if (json_list$status != "error") json_list$message <- NULL  # remove message key from top level if no top level error
 
 spaces <- function(n, indt) paste(rep(strrep(" ", indt), n), collapse = "") # helper function for `to_json`
+
 to_json <- function(x, i = 0, indent = 4) {
   if (is.character(x)) return(encodeString(paste(x, collapse = ""), quote = '"'))
   if (is.numeric(x)) return(as.character(x))
@@ -90,4 +85,4 @@ to_json <- function(x, i = 0, indent = 4) {
   paste0("{\n", paste(items, collapse = ",\n"), "\n", spaces(i, indent), "}")
 }
 
-cat(to_json(json_list, indent = 4), "\n", sep = "")  # create `results.json`
+cat(to_json(json_list), "\n", sep = "")  # create `results.json`
