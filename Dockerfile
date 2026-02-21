@@ -1,12 +1,13 @@
-FROM rocker/tidyverse:4.5.2
+FROM rhub/r-minimal
 
-RUN apt-get update && \
-    apt-get install -y jq && \
-    apt-get purge --auto-remove -y && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+RUN apk --update add jq
 
-RUN Rscript -e 'install.packages("testthat")'
+RUN installr -d \
+    -t "curl-dev libxml2-dev linux-headers gfortran fontconfig-dev fribidi-dev harfbuzz-dev freetype-dev libpng-dev tiff-dev" \
+    -a "libcurl libxml2 fontconfig fribidi harfbuzz freetype libpng tiff libjpeg icu-libs" \
+    stringr \
+    tidyverse  \
+    testthat
 
 COPY . /opt/test-runner
 WORKDIR /opt/test-runner
