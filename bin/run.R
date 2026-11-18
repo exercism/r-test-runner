@@ -1,3 +1,8 @@
+# R's JIT compiles each function the first time it is called. For this script's own short functions,
+# compiling takes longer than running them, so we turn the JIT off here. We turn it back on while the
+# tests run, so the student's code is compiled as before.
+jit_level <- compiler::enableJIT(0)
+
 library(testthat)
 
 # Creates the `results.json` for the test runner with `test_slug.R` supplied from `run.sh`.
@@ -29,7 +34,9 @@ has_description <- function(dir) {
 }
 if (!has_description(dirname(normalizePath(test_slug, mustWork = FALSE)))) Sys.setenv(TESTTHAT_EDITION = "2")
 
+invisible(compiler::enableJIT(jit_level))
 stdout <- capture.output(testout <- test_file(test_slug, reporter = "list")) # Run `test_slug.R`, get testthat output and capture stdout
+invisible(compiler::enableJIT(0))
 stdout <- substring(paste(stdout, collapse = "\n"), 1, 500)                  # Trim stdout
 
 json_list <- list(
