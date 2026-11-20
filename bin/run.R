@@ -1,3 +1,8 @@
+# R's JIT compiles each function the first time it is called. For this script's own short functions,
+# compiling takes longer than running them, so we turn the JIT off here. We turn it back on while the
+# tests run, so the student's code is compiled as before.
+jit_level <- compiler::enableJIT(0)
+
 library(testthat)
 
 # Creates the `results.json` for the test runner with `test_slug.R` supplied from `run.sh`.
@@ -16,7 +21,22 @@ test_slug_str <- paste(readLines(test_slug, warn = FALSE), collapse = "\n")     
 test_matches <- gregexpr("test_that\\([\\s\\S]*?\\n?}\\n?\\)", test_slug_str, perl = TRUE) # Match test sets in `test_slug.R`
 code_run <- unlist(regmatches(test_slug_str, test_matches))                                # Vector of test set code strings from `test_slug.R`
 
+# testthat picks its edition from the nearest DESCRIPTION file, and uses edition 2 if it finds none.
+# Looking for that file loads pkgload and its dependencies, which takes about a second.
+# Solutions have no DESCRIPTION file, so when we find none we set edition 2 ourselves, and testthat skips the search.
+has_description <- function(dir) {
+  repeat {
+    if (file.exists(file.path(dir, "DESCRIPTION"))) return(TRUE)
+    parent <- dirname(dir)
+    if (parent == dir) return(FALSE)
+    dir <- parent
+  }
+}
+if (!has_description(dirname(normalizePath(test_slug, mustWork = FALSE)))) Sys.setenv(TESTTHAT_EDITION = "2")
+
+invisible(compiler::enableJIT(jit_level))
 stdout <- capture.output(testout <- test_file(test_slug, reporter = "list")) # Run `test_slug.R`, get testthat output and capture stdout
+invisible(compiler::enableJIT(0))
 stdout <- substring(paste(stdout, collapse = "\n"), 1, 500)                  # Trim stdout
 
 json_list <- list(
